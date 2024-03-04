@@ -8,3 +8,11 @@ head over to this <a href="https://greasyfork.org/pt-BR/scripts/488480-neon-s-ga
 then you are good to go.
 
 the GMM Button will show up whenever you are the host in custom games, which will allow you to import, export and play the custom gamemodes.
+
+Other links:
+
+[Bonk.io Modding Discord server](https://discord.gg/PHtG6qN3qj)
+
+[Sneezing Cactus Discord Server (she is truly sneezing)](https://discord.gg/dnBM3N6H8a)
+
+[Hitbox.io (unofficial) Modding Discord Server](https://discord.gg/ugbYD26F9P)
