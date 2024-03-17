@@ -166,3 +166,8 @@ let id = game.graphics.create({
 			]
 });
 ```
+
+And that's it :)
+Other tutorials below:
+
+[Listening to events](https://github.com/wildyShadow/NeonGmmaker/main/docs/tutorials/events.md)
