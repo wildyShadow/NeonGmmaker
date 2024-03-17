@@ -12,11 +12,11 @@ game.events.add("event",() => {
 
 The current events as of v1.13 include:
 
-- init
-- step
-- ondeath
-- init4each
-- step4each
+- [init](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md#init)
+- [step](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md#step)
+- [ondeath](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md#ondeath)
+- [init4each](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md#init4each)
+- [step4each](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md#step4each)
 
 Below, you can see each type, and their use.
 
