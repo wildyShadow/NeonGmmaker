@@ -22,3 +22,5 @@ Other links:
 A few tutorials to get you in gamemode make'in
 
 [Listening to events](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md)
+
+[Displaying Graphics](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/graphics.md)
