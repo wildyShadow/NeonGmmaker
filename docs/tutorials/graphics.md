@@ -16,25 +16,25 @@ Example:
 
 ```js
 let id = game.graphics.create({
-			p: [0,0],
-			attach: "world",
-			scale: [1,1],
-      fixedAngle: true,
-			a: 0,
-			shapes: [
-				{
-          // Type of shape (bx,tx,ci,im)
-					type: "bx",
-          // Color of the shape
-					color: 0xffffff,
-          // Angle of the shape
-					a: 0
-          // Offset of the shape
-					p: [0,0],
-          // Size of the shape
-					size: [2,2],
-				}
-			]
+        p: [0,0],
+        attach: "world",
+        scale: [1,1],
+        fixedAngle: true,
+        a: 0,
+        shapes: [
+              {
+                // Type of shape (bx,tx,ci,im)
+                type: "bx",
+                // Color of the shape
+                color: 0xffffff,
+                // Angle of the shape
+                a: 0
+                // Offset of the shape
+                p: [0,0],
+                // Size of the shape
+                size: [2,2],
+              }
+        ]
 });
 ```
 
@@ -44,27 +44,27 @@ Example:
 
 ```js
 let id = game.graphics.create({
-			p: [0,0],
-			attach: "cube",
-      // Id of the cube
-      attachId: cubeId,
-			scale: [1,1],
-      fixedAngle: true,
-			a: 0,
-			shapes: [
-				{
-          // Type of shape (bx,tx,ci,im)
-					type: "bx",
-          // Color of the shape
-					color: 0xffffff,
-          // Angle of the shape
-					a: 0
-          // Offset of the shape
-					p: [0,0],
-          // Size of the shape
-					size: [2,2],
-				}
-			]
+        p: [0,0],
+        attach: "cube",
+        //The id of the cube to attach the drawing to
+        attachId: cubeId,
+        scale: [1,1],
+        fixedAngle: true,
+        a: 0,
+        shapes: [
+              {
+                // Type of shape (bx,tx,ci,im)
+                type: "bx",
+                // Color of the shape
+                color: 0xffffff,
+                // Angle of the shape
+                a: 0
+                // Offset of the shape
+                p: [0,0],
+                // Size of the shape
+                size: [2,2],
+              }
+        ]
 });
 ```
 
@@ -104,27 +104,27 @@ Example:
 
 ```js
 let id = game.graphics.create({
-			p: [0,0],
-			attach: "world",
-			scale: [1,1],
-      fixedAngle: true,
-			a: 0,
-			shapes: [
-				{
-          // Type of shape (bx,tx,ci,im)
-					type: "im",
-          // Color of the shape
-					color: 0xffffff,
-          // Angle of the shape
-					a: 0
-          // Offset of the shape
-					p: [0,0],
-          // Size of the shape
-					size: [2,2],
-          // Id of the image
-          id: "sword"
-				}
-			]
+        p: [0,0],
+        attach: "world",
+        scale: [1,1],
+        fixedAngle: true,
+        a: 0,
+        shapes: [
+              {
+                // Type of shape (bx,tx,ci,im)
+                type: "im",
+                // Color of the shape
+                color: 0xffffff,
+                // Angle of the shape
+                a: 0
+                // Offset of the shape
+                p: [0,0],
+                // Size of the shape
+                size: [2,2],
+                // Id of the image
+                id: "sword"
+              }
+        ]
 });
 ```
 
@@ -136,38 +136,38 @@ An example of it's use below:
 
 ```js
 let id = game.graphics.create({
-			p: [0,0],
-			attach: "world",
-			scale: [1,1],
-      fixedAngle: true,
-			a: 0,
-			shapes: [
-				{
-          // Type of shape (bx,tx,ci,im)
-					type: "im",
-          // Color of the shape
-					color: 0xffffff,
-          // Angle of the shape
-					a: 0
-          // Offset of the shape
-					p: [0,0],
-          // Size of the shape
-					size: [2,2],
-          // Id of the spritesheet
-          id: "spritesheet",
-          // The region, (the area which will be shown)
-          region: {
-            // The position of the region that should be cut off
-            pos: [0,0],
-            // The size of the region that should be cut off
-            size: [16,16]
-          }
-				}
-			]
+        p: [0,0],
+        attach: "world",
+        scale: [1,1],
+        fixedAngle: true,
+        a: 0,
+        shapes: [
+              {
+                // Type of shape (bx,tx,ci,im)
+                type: "bx",
+                // Color of the shape
+                color: 0xffffff,
+                // Angle of the shape
+                a: 0
+                // Offset of the shape
+                p: [0,0],
+                // Size of the shape
+                size: [2,2],
+                // Id of the spritesheet
+                id: "spritesheet",
+                // The region, (the area which will be shown)
+                region: {
+                // The position of the region that should be cut off
+                pos: [0,0],
+                // The size of the region that should be cut off
+                size: [16,16]
+                }
+              }
+        ]
 });
 ```
 
 And that's it :)
 Other tutorials below:
 
-[Listening to events](https://github.com/wildyShadow/NeonGmmaker/main/docs/tutorials/events.md)
+[Listening to events](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md)
