@@ -16,3 +16,9 @@ Other links:
 [Sneezing Cactus Discord Server (she is truly sneezing)](https://discord.gg/dnBM3N6H8a)
 
 [Hitbox.io (unofficial) Modding Discord Server](https://discord.gg/ugbYD26F9P)
+
+## Getting started
+
+A few tutorials to get you in gamemode make'in
+
+[Listening to events](https://github.com/wildyShadow/NeonGmmaker/blob/main/docs/tutorials/events.md)
