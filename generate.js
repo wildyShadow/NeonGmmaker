@@ -7,7 +7,7 @@ blocklyFuncs = String(blocklyFuncs).replace(/\`/ig, "\\`").replace(/\$/ig,'\\$')
 
 var JavaScriptObfuscator = require('javascript-obfuscator');
 // makes code beautiful?
-
+const version = "2.0.4";
 let code = `
 fetch(\`https://hitbox.io/bundle.js\`)
     .then(code => code.text())
@@ -40,7 +40,7 @@ if (true) {
 const content = `// ==UserScript==
 // @name         Neon's Gamemode Maker TEST
 // @namespace    http://tampermonkey.net/
-// @version      v2.03
+// @version      v${version}
 // @description  A Mod about custom gamemodes for hitbox.io.
 // @author       iNeonz
 // @match        https://heav.io/game.html
@@ -56,9 +56,9 @@ const content = `// ==UserScript==
 // @updateURL https://update.greasyfork.org/scripts/476080/Neon%27s%20Hitbox%20mod.meta.js
 // ==/UserScript==
 
-const version = "v2.03";
+const version = "v${version}";
 
 ${code};
 `;
 
-fs.writeFileSync(`./out/gmmaker-2.0.6.user.js`, content);
+fs.writeFileSync(`./out/gmmaker-${version}.user.js`, content);
