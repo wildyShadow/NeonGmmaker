@@ -9,7 +9,7 @@
 	],
 	"template": {
 		"readme": "./README.md",
-		"siteRoot": "NeonGmmaker/docs/",
+		"siteRoot": "NeonGmmaker/",
 		"outputSourceFiles": false,
 		"applicationName": "Neon GMMAKER",
 		"title": "NGMMaker docs",
@@ -19,7 +19,7 @@
 		}
 	},
 	"manifest": {
-		"root": "NeonGmmaker/docs/"
+		"root": "NeonGmmaker/"
 	},
 	"opts": {
 		"destination": "docs",
