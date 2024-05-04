@@ -245,8 +245,7 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
     return simulated;
 }
 
-//eval defineGMM("game.events.add('step',function() {game.state.po[0].th = -5;})")
-
+//eval 
 function getAllStates() {
     let state;
     for (let a in stateMaker) {

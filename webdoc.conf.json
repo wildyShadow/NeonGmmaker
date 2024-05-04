@@ -1,0 +1,28 @@
+{
+	"source": {
+		"include": "./src/webdoc/gmmd.ts",
+		"exclude": "node_modules"
+	},
+	"plugins": [
+		"@webdoc/plugin-markdown",
+		"@webdoc/plugin-format"
+	],
+	"template": {
+		"readme": "./README.md",
+		"siteRoot": "/gmmaker/docs/",
+		"outputSourceFiles": false,
+		"applicationName": "Neon GMMAKER",
+		"title": "GMMaker docs",
+		"meta": {
+			"og:title": "NGMMaker docs",
+			"og:description": "NGMMaker in-game API documentation"
+		}
+	},
+	"manifest": {
+		"root": "/gmmaker/docs/"
+	},
+	"opts": {
+		"destination": "docs",
+		"export": "./docs/webdoc.api.json"
+	}
+}

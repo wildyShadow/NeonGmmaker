@@ -7,6 +7,8 @@ blocklyFuncs = String(blocklyFuncs).replace(/\`/ig, "\\`").replace(/\$/ig,'\\$')
 
 var JavaScriptObfuscator = require('javascript-obfuscator');
 // makes code beautiful?
+const td = fs.readFileSync("./src/webdocs/gmmd.ts")
+
 const version = "2.0.4";
 let code = `
 fetch(\`https://hitbox.io/bundle.js\`)
@@ -18,6 +20,7 @@ fetch(\`https://hitbox.io/bundle.js\`)
         // Set up
         let codeNames = {};
         const blocklyDefs = ${fs.readFileSync("./src/Blockly/blocklyDefs.json")};
+        const libSource = `${td}`;
         ${fs.readFileSync("./src/Ngmm/injector.js")}
         ${fs.readFileSync("./src/Ngmm/world.js")}
         ${fs.readFileSync("./src/Ngmm/ngmm.js")}
@@ -38,7 +41,7 @@ if (true) {
 }
 
 const content = `// ==UserScript==
-// @name         Neon's Gamemode Maker TEST
+// @name         Neon's Gamemode Maker beta
 // @namespace    http://tampermonkey.net/
 // @version      v${version}
 // @description  A Mod about custom gamemodes for hitbox.io.
@@ -61,4 +64,4 @@ const version = "v${version}";
 ${code};
 `;
 
-fs.writeFileSync(`./out/gmmaker-${version}.user.js`, content);
+fs.writeFileSync(`./out/ngmmaker-${version}.user.js`, content);

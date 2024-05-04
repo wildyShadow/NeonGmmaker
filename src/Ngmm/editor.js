@@ -153,8 +153,6 @@ checkButton.onclick = () => {
     editor.style.display = "none";
 }
 new Promise(async (r) => {
-    let fetched = await fetch('https://raw.githubusercontent.com/wildyShadow/NeonGmmaker/main/shared/typescript.ts');
-    let libSource = await fetched.text();
     const thisId = setInterval(() => {
         if (window.monaco) {
             let libUri = "ts:filename/facts.d.ts";
