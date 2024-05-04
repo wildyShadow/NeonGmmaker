@@ -15,3 +15,5 @@ call ineonz on discord for support or join one of the servers:
 [Bonk.io modding server](https://discord.gg/3BbtZAEzsE)
 
 [Hitbox.io community server](https://discord.gg/MS556hYBYx)
+
+Documentation [here](https://wildyshadow.github.io/NeonGmmaker/docs/Class-Index.html)
