@@ -19,7 +19,7 @@
 		}
 	},
 	"manifest": {
-		"root": "NeonGmmaker/"
+		"root": "NeonGmmaker/docs"
 	},
 	"opts": {
 		"destination": "docs",
