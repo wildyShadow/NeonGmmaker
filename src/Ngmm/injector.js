@@ -1,14 +1,21 @@
+const newScope = (scope, script) => Function(`"use strict"; const globalThis = null; const window = null; const document = null; const game = this; for (let i in game.usedMath) {Math[i] = (...args) => {return game.Math[i](...args)};}; ${script}`).bind(scope);
+const DN = ["gsFightersCollide", "recordMode", "o", "l", "u", "m", "g", "v", "k", "N", "S", "M", "C", "_", "T", "P", "B", "I", "F", "R", "O", "A", "D", "L", "U", "H", "J", "W", "G", "Y", "V", "q", "K", "X", "Z", "$", "tt", "it", "st", "ht", "et", "nt", "ot", "rt", "at", "lt", "ut", "ct", "dt", "wt", "ft", "gt", "bt"];
+function appendScript(link, head) {
+    let scr = document.createElement("script");
+    scr.src = link;
+    (head ? document.head : document.body).appendChild(scr);
+}
+
+// This was once used to get properties of every class, but a better method was found :D
+
 const codeNamesRegex = {
     "simulation": {
         reg: /\];\}.{0,2}\(.{0,3}\) {var .{0,3},.{0,3},.{0,3},.{0,3},.{0,3},.{0,3};(.*?)\{throw new Error\("Failed to simulate(.*?)\);\}(.*?)\.step\((.*?)\);(.*?).{0,2}\(\);(.*?)\}.{0,2}\(\)/ig,
         verify: function (match) {
-            //console.log(match);
             let world = match[0].match(/this\..{2,2}\.step\(/ig)[0];
-            let sim = match[0].split(";}")[1].split("(")[0];
-            //console.log(sim);
-            let thisses = match[0].split("this.");
-            //console.log(thisses);
-            for (let i of thisses) {
+            let simulation = match[0].split(";}")[1].split("(")[0];
+            let properties = match[0].split("this.");
+            for (let i of properties) {
                 if (i.match("=")) {
                     i = i.split("=")[0];
                 } else {
@@ -16,16 +23,9 @@ const codeNamesRegex = {
                 }
             }
             thisses.filter(a => a != null);
-            //console.log(thisses);
-            //console.log([sim,thisses[1].split(".")[0],thisses[1].split(".")[1].split("(")[0]]);
-            return [sim, thisses[1].split(".")[0], thisses[1].split(".")[1].split("(")[0], world.split("this.")[1].split(".")[0]];
+            return [simulation, properties[1].split(".")[0], properties[1].split(".")[1].split("(")[0], world.split("this.")[1].split(".")[0]];
         }
     },
-}
-function appendScript(link, head) {
-    let scr = document.createElement("script");
-    scr.src = link;
-    (head ? document.head : document.body).appendChild(scr);
 }
 
 for (let i in codeNamesRegex) {
@@ -47,75 +47,16 @@ appendScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs
 appendScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.nls.js");
 appendScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.js");
 document.head.appendChild(monacoCSS);
-
-const newScope = (scope, script) => Function(`"use strict"; const globalThis = null; const window = null; const document = null; const game = this; for (let i in game.usedMath) {Math[i] = (...args) => {return game.Math[i](...args)};}; ${script}`).bind(scope);
-
-  let DN = [
-        "gsFightersCollide",
-        "recordMode",
-        "o",
-        "l",
-        "u",
-        "m",
-        "g",
-        "v",
-        "k",
-        "N",
-        "S",
-        "M",
-        "C",
-        "_",
-        "T",
-        "P",
-        "B",
-        "I",
-        "F",
-        "R",
-        "O",
-        "A",
-        "D",
-        "L",
-        "U",
-        "H",
-        "J",
-        "W",
-        "G",
-        "Y", // ss
-        "V",
-        "q",
-        "K",
-        "X",
-        "Z",
-        "$",
-        "tt",
-        "it",
-        "st",
-        "ht",
-        "et",
-        "nt",
-        "ot",
-        "rt",
-        "at",
-        "lt",
-        "ut",
-        "ct",
-        "dt",
-        "wt",
-        "ft",
-        "gt",
-        "bt"
-]
-
-let stateMaker;
-let mostScore = -1;
-let game = {
+var stateMaker;
+var mostScore = -1;
+const game = {
     state: null,
     Math: { "random": Math.random },
     usedMath: {
         "random": true
     }
 }
-let gmm = {
+const gmm = {
     enabled: false,
     pixi: {},
     overrides: {},
@@ -128,7 +69,6 @@ let gmm = {
     }
 }
 window.gmm = gmm;
-const origRandom = Math.random;
 
 const gmmEvents = [
     "step",
@@ -195,20 +135,20 @@ for (let i of stateVars) {
         stateArray.push(i.split("this.")[1].split("=")[0]);
     }
 }
-// 23
+
 const Tsettings = stateMaker[stateArray[13]].settings[0]
 const settingsArray = String(Tsettings.constructor).split("constructor() {")[1].match(/this\..{0,2}=(.*?);/ig);
-//console.log(String(Tsettings.constructor));
 const settingsEndArray = [];
+
 for (let i of settingsArray) {
     if (i.match("=")) {
         settingsEndArray.push(i.split("this.")[1].split("=")[0]);
     }
 }
 codeNames.settings = settingsEndArray;
-console.log(stateArray);
 const editorInfo = stateMaker[stateArray[18]];
 let editorMaps = [];
+let playerInfo = [];
 const editorVar = String(editorInfo.constructor).match(/this\.(.*?)=/ig);
 editorVar.splice(0, 1);
 const editorVarArray = [];
@@ -219,8 +159,8 @@ for (let i of editorVar) {
 }
 console.log(editorVarArray, "l");
 editorMaps = editorInfo[editorVarArray[4]];
+playerInfo = editorInfo[editorVarArray[2]];
 const stateVars2 = String(stateMaker[stateArray[23]].constructor).match(/this\.(.*?)=/ig);
-// console.log(stateVars2);
 stateVars.splice(0, 1);
 const stateArray2 = [];
 for (let i of stateVars2) {
@@ -278,7 +218,6 @@ class listener {
         }
     }
 }
-
 function defineGMM(code, blocklys, switched) {
     gmmTextures = {};
     gmmSounds = {};
@@ -359,16 +298,6 @@ window.requestAnimationFrame = new Proxy(window.requestAnimationFrame, {
         }
         Reflect.apply(...arguments);
         gmmEditor.style.display = document.querySelector("#appContainer > div.lobbyContainer > div.settingsBox > div.hideLobbyButton.settingsButton").style.display != 'none' ? 'none' : 'block';
-        /*if (currentState && currentState.mo){
-        for (let id in currentState.mo){
-         let info = currentState.mo[id];
-            if (!info.injected){
-                info.injected = true;
-                let player = findUser(info.$h);
-                console.log(player.name,"died?",info);
-            }
-        }
-    }*/
 
         for (let i in alive) {
             let unalive = (!alive[i].obj || !alive[i].obj.transform || !alive[i].obj.parent || !alive[i].txt || !alive[i].txt.visible || alive[i].txt.parent != alive[i].obj || !alive[i].obj.visible || alive[i].obj.alpha <= 0);
@@ -392,11 +321,6 @@ window.requestAnimationFrame = new Proxy(window.requestAnimationFrame, {
         }
     }
 })
-
-const originalSend = window.WebSocket.prototype.send;
-let excludewss = [];
-let WSS = 0;
-
 function findUser(id) {
     for (let t in users) {
         let o = users[t];
@@ -408,14 +332,13 @@ function findUser(id) {
     }
 }
 
-function updateGMMButton() {
+const updateGMMButton = () => {
     if (hostId == myid) {
         gmmEditor.classList.remove('disabled');
     } else {
         gmmEditor.classList.add('disabled');
     }
 }
-//eval setInterval(() => {sendInfo({execute:`this.state.po[0].th = -20;`});},2000);
 
 function decodeString(encodedString) {
     let decompressed = atob(decodeURIComponent(encodedString));
@@ -424,110 +347,6 @@ function decodeString(encodedString) {
     });
     let decoded = JSON.parse(inflated);
     return decoded;
-}
-
-window.WebSocket.prototype.send = function (args) {
-    if (this.url.includes("/socket.io/?EIO=3&transport=websocket&sid=")) {
-        if (typeof (args) == "string" && !excludewss.includes(this)) {
-            if (!WSS) {
-                WSS = this;
-            }
-            if (WSS == this) {
-                if (args.startsWith('42[1,[')) {
-                    try {
-                        let packet = JSON.parse(args.slice(5, -1))
-                        if (packet[0] == 62) {
-                            settings = packet[1];
-                        }
-                    } catch (error) { }
-                } else if (args.startsWith('42[2,')) {
-                    myid = 0;
-                    hostId = 0;
-                }
-            } else {
-                excludewss.push(this);
-            }
-            //console.log('SENT',args);
-        }
-        if (!this.injected) {
-            this.injected = true;
-            const originalClose = this.onclose;
-            this.onclose = (...args) => {
-                if (WSS == this) {
-                    WSS = 0;
-                    excludewss = [];
-                    editor.style.display = "none";
-                    users = [];
-                    for (let i in gmm.pixi) {
-                        gmm.pixi[i].container.destroy();
-                        delete gmm.pixi[i];
-                    }
-                    gmm.enabled = false;
-                }
-                originalClose.call(this, ...args);
-            }
-            this.onmessage2 = this.onmessage;
-            this.onmessage = function (event) {
-                if (!excludewss.includes(this) && typeof (event.data) == 'string') {
-                    if (event.data.startsWith('42[')) {
-                        let packet = JSON.parse(event.data.slice(2, event.data.length));
-                        if (packet[0] == 63) {
-                            if (packet[1].nhm) {
-                                if (packet[1].nhm.gmm && myid != hostId && (!packet[1].nhm.target || packet[1].nhm.target == myid)) {
-                                    defineGMM(packet[1].nhm.gmm, packet[1].nhm.blockly, packet[1].nhm.blocklyEnabled);
-                                    display("[NGMM] The host has changed the gamemode.")
-                                    console.log(packet[1].nhm.gmm);
-                                }
-                                delete packet[1].nhm;
-                            }
-                            settings = packet[1];
-                        }
-                        if (packet[0] == 7) {
-                            myid = packet[1][0]
-                            hostId = packet[1][1];
-                            updateGMMButton();
-                            for (let i of packet[1][3]) {
-                                users.push({ "team": i[2], "color": (i[7][0] || i[7][1]), "name": i[0], "id": i[4], "lvl": i[6] });
-                            }
-                        }
-                        if (packet[0] == 25) {
-                            let plr = findUser(packet[1]);
-                            if (plr) {
-                                plr.team = packet[2];
-                            }
-                        }
-                        if (packet[0] == 9) {
-                            hostId = packet[2];
-                            updateGMMButton();
-                            let user = findUser(packet[1]);
-                            if (user) {
-                                users.splice(user.index, 1);
-                            }
-                        }
-                        if (packet[0] == 45) {
-                            hostId = packet[1];
-                            updateGMMButton();
-                        }
-                        if (packet[0] == 8) {
-                            if (myid == hostId && gmm.enabled) {
-                                sendInfo({ gmm: gmm.code, target: packet[1][4] });
-                            }
-                            if (gmm.enabled) {
-                                if (game.state && getCurrentState()) {
-                                    for (let func of gmm.events.init4each) {
-                                        func(packet[1][2]);
-                                    }
-                                }
-                            }
-                            users.push({ "name": packet[1][0], "color": (packet[7] ? (packet[7][1] || packet[7][0]) : undefined), "team": packet[1][2], "id": packet[1][4], "lvl": packet[1][6] });
-                        }
-                    }
-                }
-                this.onmessage2.call(this, event);
-            }
-        }
-    }
-    return originalSend.call(this, args);
 }
 
 let chats = document.getElementsByClassName('content');

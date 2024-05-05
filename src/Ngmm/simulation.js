@@ -110,11 +110,14 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
                 simulated.graphics = { create: createGraphics, index: parseInt(lc.graphics.index.toString()), drawings: JSON.parse(JSON.stringify(lc.graphics.drawings)) };
                 simulated.prevGraphics = { create: createGraphics, index: parseInt(lc.graphics.index.toString()), drawings: JSON.parse(JSON.stringify(lc.graphics.drawings)) };
             }
-            game.sound = { load: loadSoundGMM, play: playSoundGMM, step: 0 };
-            game.world = { raycast: raycast };
+            if (!game.essential) {
+                game.sound = { load: loadSoundGMM, play: playSoundGMM, step: 0 };
+                game.world = { raycast: raycast };
+                game.essential = true;
+                game.Vector = vectorUtils;
+            }
             game.state = encodeState(simulated);
             game.state.frames = frame;
-            game.Vector = vectorUtils;
             game.overrides = simulated.overrides;
             let seed = 0;
             seed = Number(frame);
@@ -128,15 +131,11 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
             }
             const rng = new SeedRandom(seed);
             game.Math.random = () => {
-                if (gmm.enabled) {
-                    if (game.state) {
-                        return Math.round(rng(1000000000)) * 0.000000001;
-                    }
-                } else {
-                    return origRandom();
+                if (game.state) {
+                    return Math.round(rng(1000000000)) * 0.000000001;
                 }
             }
-            if (frame == 1) {
+            if (frame == 0) {
                 game.clientId = myid;
                 game.hostId = hostId;
                 for (let i in gmm.pixi) {
@@ -151,9 +150,9 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
                     func();
                 }
                 for (let func of gmm.events.init4each) {
-                    for (let i of users) {
+                    for (let id in game.state.playerData) {
                         try {
-                            func(i.id);
+                            func(id);
                         }
                         catch (error) {
                             WSS.onmessage({ data: `42[22]` });
@@ -173,7 +172,7 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
             game.inputs = makeInputs(frame, game.state.cubes);
             game.vars = simulated.vars;
             game.graphics = simulated.graphics;
-            if (frame > 1) {
+            if (frame != 0) {
                 for (let func of gmm.events.step) {
                     try {
                         func();
@@ -201,14 +200,14 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
                     }
                 }
                 for (let func of gmm.events.step4each) {
-                    for (let i of users) {
+                    for (let id in game.state.playerData) {
                         try {
-                            func(i.id);
+                            func(id);
                         }
                         catch (error) {
                             WSS.onmessage({ data: `42[22]` });
                             if (hostId == myid) {
-                                display("LEVEL 3 ERROR: " + error, "#ff0000", "#ff0000", true);
+                                display("ERROR: " + error, "#ff0000", "#ff0000", true);
                             }
                             console.error(error);
                             return;
@@ -226,7 +225,7 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
         } catch (error) {
             WSS.onmessage({ data: `42[22]` });
             if (hostId == myid) {
-                display("LEVEL 1 ERROR: " + error, "#ff0000", "#ff0000", true);
+                display("ERROR: " + error, "#ff0000", "#ff0000", true);
             }
             console.error(error);
             return;
@@ -245,19 +244,25 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
     return simulated;
 }
 
-//eval 
+//eval
+let stateProperty = null;
 function getAllStates() {
     let state;
-    for (let a in stateMaker) {
-        let b = stateMaker[a];
-        if (b.constructor.name == "Array") {
-            for (let i of b) {
-                if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
-                    if (i.all.length > 10 && i.all.length < 15) {
-                        state = b;
-                        break;
-                    }
+    if (stateProperty) {
+        state = stateMaker[stateProperty];
+    } else {
+        for (let a in stateMaker) {
+            let b = stateMaker[a];
+            if (b.constructor.name == "Array") {
+                for (let i of b) {
+                    if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
+                        if (i.all.length > 10 && i.all.length < 15) {
+                            state = b;
+                            stateProperty = a;
+                            break;
+                        }
 
+                    }
                 }
             }
         }
@@ -269,16 +274,21 @@ function getAllStates() {
 
 function setStates(states) {
     let state;
-    for (let a in stateMaker) {
-        let b = stateMaker[a];
-        if (b.constructor.name == "Array") {
-            for (let i of b) {
-                if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
-                    if (i.all.length > 10 && i.all.length < 15) {
-                        state = b;
-                        break;
-                    }
+    if (stateProperty) {
+        state = stateMaker[stateProperty];
+    } else {
+        for (let a in stateMaker) {
+            let b = stateMaker[a];
+            if (b.constructor.name == "Array") {
+                for (let i of b) {
+                    if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
+                        if (i.all.length > 10 && i.all.length < 15) {
+                            state = b;
+                            stateProperty = a;
+                            break;
+                        }
 
+                    }
                 }
             }
         }
@@ -287,7 +297,6 @@ function setStates(states) {
         state = states;
     }
 }
-
 function getCurrentState() {
     let state;
     for (let a in stateMaker) {

@@ -9,7 +9,7 @@ var JavaScriptObfuscator = require('javascript-obfuscator');
 // makes code beautiful?
 const td = fs.readFileSync("./src/webdocs/gmmd.ts")
 
-const version = "2.0.4";
+const version = "2.0.6";
 let code = `
 fetch(\`https://hitbox.io/bundle.js\`)
     .then(code => code.text())
@@ -20,8 +20,9 @@ fetch(\`https://hitbox.io/bundle.js\`)
         // Set up
         let codeNames = {};
         const blocklyDefs = ${fs.readFileSync("./src/Blockly/blocklyDefs.json")};
-        const libSource = `${td}`;
+        const libSource = \`${td}\`;
         ${fs.readFileSync("./src/Ngmm/injector.js")}
+        ${fs.readFileSync("./src/Ngmm/websocket.js")}
         ${fs.readFileSync("./src/Ngmm/world.js")}
         ${fs.readFileSync("./src/Ngmm/ngmm.js")}
         ${fs.readFileSync("./src/Ngmm/state.js")}
@@ -55,8 +56,6 @@ const content = `// ==UserScript==
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=heav.io
 // @grant        none
 // @run-at       document-idle
-// @downloadURL https://update.greasyfork.org/scripts/476080/Neon%27s%20Hitbox%20mod.user.js
-// @updateURL https://update.greasyfork.org/scripts/476080/Neon%27s%20Hitbox%20mod.meta.js
 // ==/UserScript==
 
 const version = "v${version}";
@@ -64,4 +63,4 @@ const version = "v${version}";
 ${code};
 `;
 
-fs.writeFileSync(`./out/ngmmaker-${version}.user.js`, content);
+fs.writeFileSync(`./web-ext-artifacts/ngmmaker-${version}.user.js`, content);
