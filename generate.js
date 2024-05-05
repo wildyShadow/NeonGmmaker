@@ -53,7 +53,7 @@ const content = `// ==UserScript==
 // @match        https://hitbox.io/game2.html
 // @match        https://hitbox.io/game-beta.html
 // @require      https://unpkg.com/blockly/blockly.min.js
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=heav.io
+// @icon         https://github.com/wildyShadow/NeonGmmaker/blob/master/src/assets/ngmm.png?raw=true
 // @grant        none
 // @run-at       document-idle
 // ==/UserScript==

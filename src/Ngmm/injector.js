@@ -22,15 +22,19 @@ const codeNamesRegex = {
                     i = null;
                 }
             }
-            thisses.filter(a => a != null);
+            properties.filter(a => a != null);
             return [simulation, properties[1].split(".")[0], properties[1].split(".")[1].split("(")[0], world.split("this.")[1].split(".")[0]];
         }
     },
 }
 
+// Execute the verification (may be replaced at any moment)
+
 for (let i in codeNamesRegex) {
     codeNames[i] = codeNamesRegex[i].verify(code.match(codeNamesRegex[i].reg));
 }
+
+// Required monaco stuff, hacky method because greasyfork wouldn't allow me
 
 let monacoCSS = document.createElement(`link`);
 monacoCSS.rel = "stylesheet";
@@ -157,7 +161,7 @@ for (let i of editorVar) {
         editorVarArray.push(i.split("this.")[1].split("=")[0]);
     }
 }
-console.log(editorVarArray, "l");
+
 editorMaps = editorInfo[editorVarArray[4]];
 playerInfo = editorInfo[editorVarArray[2]];
 const stateVars2 = String(stateMaker[stateArray[23]].constructor).match(/this\.(.*?)=/ig);
@@ -428,7 +432,7 @@ gmmEditor.onclick = () => {
 }
 const splashScreen = document.createElement('div');
 document.getElementById("appContainer").appendChild(splashScreen);
-splashScreen.outerHTML = `<div id='splash' style='position: absolute; font-size: 10px; left: 20px; top: 20px; text-align: right; width: 290px; height: 160px; background-color: rgb(0,0,0,0.6); border-radius: 20px;'><img style='position: absolute; left: 10px; top: 10px;' src='https://raw.githubusercontent.com/SneezingCactus/gmmaker/master/src/gmWindow/images/gmmlogo.png' width='120' height='120'></img><div style='position: absolute; right: 5px; top: 5px;'><font size='5'>version: ${version}</font><p>NGMM has just loaded!</p><p>Original by sneezingCactus</p></div></div>`
+splashScreen.outerHTML = `<div id='splash' style='position: absolute; font-size: 10px; left: 20px; top: 20px; text-align: right; width: 290px; height: 160px; background-color: rgb(0,0,0,0.6); border-radius: 20px;'><img style='position: absolute; left: 10px; top: 10px; width: 150px; height: 150px;' src='https://github.com/wildyShadow/NeonGmmaker/blob/master/src/assets/ngmm_splash.png?raw=true' width='120' height='120'></img><div style='position: absolute; right: 5px; top: 5px;'><font size='5'>version: ${version}</font><p>NGMM has just loaded!</p><p>Original by sneezingCactus</p></div></div>`
 setTimeout(() => {
     document.querySelector("#splash").remove()
 }, 5000);

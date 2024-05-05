@@ -145,7 +145,6 @@ checkButton.onclick = () => {
             let code = window.monacoEditor.getValue();
             if (!jsSwitch) {
                 code = javascript.javascriptGenerator.workspaceToCode(blocklyWorkspace)
-                console.log(code);
             }
             defineGMM(code);
         }
