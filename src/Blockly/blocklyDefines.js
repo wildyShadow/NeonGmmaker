@@ -107,49 +107,55 @@ let cubeOPT = [
     ['team', '.team'],
 ];
 
-createEventBlock('cube_get', ['player_id'], function () {
-    this.appendDummyInput()
-        .appendField('Get')
-        .appendField(new Blockly.FieldDropdown(cubeOPT), 'info');
-    this.appendValueInput('PLRID')
-        .appendField(' of cube');
-    this.setColour(160);
-    this.lexicalVarPrefix = 'cube_get';
-    this.setOutput(true);
+Blockly.Blocks["cube_get"] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField('Get')
+            .appendField(new Blockly.FieldDropdown(cubeOPT), 'info');
+        this.appendValueInput('PLRID')
+            .appendField(' of cube');
+        this.setColour(160);
+        this.lexicalVarPrefix = 'cube_get';
+        this.setOutput(true);
 
-    if (this.validatorInit) {
-        this.validatorInit();
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('cube_exist', ['player_id'], function () {
-    this.appendValueInput('PLRID')
-        .appendField('Does this cube exist');
-    this.setColour(160);
-    this.lexicalVarPrefix = 'cube_exist';
-    this.setOutput(true);
+Blockly.Blocks["cube_exist"] = {
+    init: function () {
+        this.appendValueInput('PLRID')
+            .appendField('Does this cube exist');
+        this.setColour(160);
+        this.lexicalVarPrefix = 'cube_exist';
+        this.setOutput(true);
 
-    if (this.validatorInit) {
-        this.validatorInit();
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('cube_set', ['player_id'], function () {
-    this.appendDummyInput()
-        .appendField('Set')
-        .appendField(new Blockly.FieldDropdown(cubeOPT), 'info');
-    this.appendValueInput('PLRID')
-        .appendField(' of cube');
-    this.appendValueInput('VALUE')
-        .appendField('To');
-    this.setColour(160);
-    this.lexicalVarPrefix = 'cube_set';
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["cube_set"] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('Set')
+            .appendField(new Blockly.FieldDropdown(cubeOPT), 'info');
+        this.appendValueInput('PLRID')
+            .appendField(' of cube');
+        this.appendValueInput('VALUE')
+            .appendField('To');
+        this.setColour(160);
+        this.lexicalVarPrefix = 'cube_set';
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
 let keys = [
     ['Up key', 'up'],
@@ -162,138 +168,156 @@ let keys = [
     ['Action4 key', 'action4'],
 ]
 
-createEventBlock('input_get', ['player_id'], function () {
-    this.appendValueInput('PLRID')
-        .appendField(' is cube ');
-    this.appendDummyInput()
-        .appendField('\'s')
-        .appendField(new Blockly.FieldDropdown(keys), 'info')
-        .appendField('down?')
-    this.setColour(160);
-    this.lexicalVarPrefix = 'input_get';
-    this.setOutput(true);
+Blockly.Blocks["input_get"] = {
+    init: function () {
+        this.appendValueInput('PLRID')
+            .appendField(' is cube ');
+        this.appendDummyInput()
+            .appendField('\'s')
+            .appendField(new Blockly.FieldDropdown(keys), 'info')
+            .appendField('down?')
+        this.setColour(160);
+        this.lexicalVarPrefix = 'input_get';
+        this.setOutput(true);
 
-    if (this.validatorInit) {
-        this.validatorInit();
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('input_override', ['player_id'], function () {
-    this.appendValueInput('PLRID')
-        .appendField('Set cube ');
-    this.appendDummyInput()
-        .appendField('\'s')
-        .appendField(new Blockly.FieldDropdown(keys), 'info');
-    this.appendValueInput('VALUE')
-        .setCheck("Boolean")
-        .appendField('To');
-    this.setColour(160);
-    this.lexicalVarPrefix = 'input_override';
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["input_override"] = {
+    init: function() {
+        this.appendValueInput('PLRID')
+            .appendField('Set cube ');
+        this.appendDummyInput()
+            .appendField('\'s')
+            .appendField(new Blockly.FieldDropdown(keys), 'info');
+        this.appendValueInput('VALUE')
+            .setCheck("Boolean")
+            .appendField('To');
+        this.setColour(160);
+        this.lexicalVarPrefix = 'input_override';
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('input_no_override', ['player_id'], function () {
-    this.appendValueInput('PLRID')
-        .appendField('Stop overriding cube ');
-    this.appendDummyInput()
-        .appendField('\'s')
-        .appendField(new Blockly.FieldDropdown(keys), 'info');
-    this.setColour(160);
-    this.lexicalVarPrefix = 'input_no_override';
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["input_no_override"] = {
+    init: function() {
+        this.appendValueInput('PLRID')
+            .appendField('Stop overriding cube ');
+        this.appendDummyInput()
+            .appendField('\'s')
+            .appendField(new Blockly.FieldDropdown(keys), 'info');
+        this.setColour(160);
+        this.lexicalVarPrefix = 'input_no_override';
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('define_local', ['player_id'], function () {
-    this.appendDummyInput()
-        .appendField("Define local variable")
-        .appendField(new Blockly.FieldTextInput('variable'), 'VAR_NAME');
-    this.appendValueInput('VALUE')
-        .appendField("As");
-    this.setColour(160);
-    this.lexicalVarPrefix = 'define_get';
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["define_local"] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Define local variable")
+            .appendField(new Blockly.FieldTextInput('variable'), 'VAR_NAME');
+        this.appendValueInput('VALUE')
+            .appendField("As");
+        this.setColour(160);
+        this.lexicalVarPrefix = 'define_get';
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('set_local', ['player_id'], function () {
-    this.appendValueInput('VALUE')
-        .appendField("Set local variable")
-        .appendField(new Blockly.FieldTextInput('variable'), 'VAR_NAME')
-        .appendField("To");
-    this.setColour(160);
-    this.lexicalVarPrefix = 'define_get';
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["set_local"] = {
+    init: function() {
+        this.appendValueInput('VALUE')
+            .appendField("Set local variable")
+            .appendField(new Blockly.FieldTextInput('variable'), 'VAR_NAME')
+            .appendField("To");
+        this.setColour(160);
+        this.lexicalVarPrefix = 'define_get';
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('get_local', ['player_id'], function () {
-    this.appendDummyInput()
-        .appendField("Get local variable")
-        .appendField(new Blockly.FieldTextInput('variable'), 'VAR_NAME');
-    this.setColour(160);
-    this.lexicalVarPrefix = 'get_local';
-    this.setOutput(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["get_local"] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Get local variable")
+            .appendField(new Blockly.FieldTextInput('variable'), 'VAR_NAME');
+        this.setColour(160);
+        this.lexicalVarPrefix = 'get_local';
+        this.setOutput(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('define_group', ['player_id'], function () {
-    this.appendValueInput('GROUP')
-        .appendField("Start group")
-    this.setColour(160);
-    this.lexicalVarPrefix = 'define_group';
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["define_group"] = {
+    init: function() {
+        this.appendValueInput('GROUP')
+            .appendField("Start group")
+        this.setColour(160);
+        this.lexicalVarPrefix = 'define_group';
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('set_group', ['player_id'], function () {
-    this.appendValueInput('GROUP')
-        .appendField("Set group")
-    this.appendValueInput('VALUE')
-        .appendField("'s")
-        .appendField(new Blockly.FieldTextInput('variable'), 'VAR')
-        .appendField("To");
-    this.setColour(160);
-    this.lexicalVarPrefix = 'get_local';
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["set_group"] = {
+    init: function() {
+        this.appendValueInput('GROUP')
+            .appendField("Set group")
+        this.appendValueInput('VALUE')
+            .appendField("'s")
+            .appendField(new Blockly.FieldTextInput('variable'), 'VAR')
+            .appendField("To");
+        this.setColour(160);
+        this.lexicalVarPrefix = 'get_local';
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
-createEventBlock('get_group', ['player_id'], function () {
-    this.appendValueInput('GROUP')
-        .appendField("Get group")
-    this.appendDummyInput()
-        .appendField("'s")
-        .appendField(new Blockly.FieldTextInput('variable'), 'VAR');
-    this.setColour(160);
-    this.lexicalVarPrefix = 'get_local';
-    this.setOutput(true);
+Blockly.Blocks["get_group"] = {
+    init: function() {
+        this.appendValueInput('GROUP')
+            .appendField("Get group")
+        this.appendDummyInput()
+            .appendField("'s")
+            .appendField(new Blockly.FieldTextInput('variable'), 'VAR');
+        this.setColour(160);
+        this.lexicalVarPrefix = 'get_local';
+        this.setOutput(true);
 
-    if (this.validatorInit) {
-        this.validatorInit();
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
 
 let vector_math = [
     ['Add', 'add'],
@@ -309,37 +333,43 @@ let vector_math2 = [
 ]
 
 
-createEventBlock('vector', [], function () {
-    this.appendValueInput('X')
-        .appendField('Vector X')
-    this.appendValueInput('Y')
-        .appendField('Y')
-    this.setColour(270);
-    this.lexicalVarPrefix = 'vector';
-    this.setOutput(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+Blockly.Blocks["vector"] = {
+    init: function() {
+        this.appendValueInput('X')
+            .appendField('Vector X')
+        this.appendValueInput('Y')
+            .appendField('Y')
+        this.setColour(270);
+        this.lexicalVarPrefix = 'vector';
+        this.setOutput(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
-createEventBlock('vector_math', [], function () {
-    this.appendValueInput('A')
-        .appendField(new Blockly.FieldDropdown(vector_math), 'operation')
-    this.appendValueInput('B')
-        .appendField("and");
-    this.setColour(270);
-    this.lexicalVarPrefix = 'vector';
-    this.setOutput(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+}
+Blockly.Blocks["vector_math"] = {
+    init: function() {
+        this.appendValueInput('A')
+            .appendField(new Blockly.FieldDropdown(vector_math), 'operation')
+        this.appendValueInput('B')
+            .appendField("and");
+        this.setColour(270);
+        this.lexicalVarPrefix = 'vector';
+        this.setOutput(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
-createEventBlock('vector_math2', [], function () {
-    this.appendValueInput('A')
-        .appendField(new Blockly.FieldDropdown(vector_math2), 'operation')
-    this.setColour(270);
-    this.lexicalVarPrefix = 'vector';
-    this.setOutput(true);
-    if (this.validatorInit) {
-        this.validatorInit();
+}
+Blockly.Blocks["vector_math2"] = {
+    init: function() {
+        this.appendValueInput('A')
+            .appendField(new Blockly.FieldDropdown(vector_math2), 'operation')
+        this.setColour(270);
+        this.lexicalVarPrefix = 'vector';
+        this.setOutput(true);
+        if (this.validatorInit) {
+            this.validatorInit();
+        }
     }
-});
+}
