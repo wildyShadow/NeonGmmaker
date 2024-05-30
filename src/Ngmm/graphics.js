@@ -42,13 +42,13 @@ function updateDrawings(dt) {
                     let offsetYL = 0;
                     let offsetAngle = 0;
                     if (p.attach == "cube") {
-                        let attachCode = findUser(p.attachId)?.name;
-                        if (alive[attachCode]) {
-                            if (!gmm.pixi[id].container.parent || gmm.pixi[id].container.parent != alive[attachCode].obj) {
+                        let alive = retrieveAllPlayers();
+                        if (alive[p.attachId]) {
+                            if (!gmm.pixi[id].container.parent || gmm.pixi[id].container.parent != alive[p.attachId].obj) {
                                 gmm.pixi[id].container.parent?.removeChild(gmm.pixi[id].container);
-                                alive[attachCode].obj.addChild(gmm.pixi[id].container);
+                                alive[p.attachId].obj.addChild(gmm.pixi[id].container);
                                 gmm.pixi[id].container.zIndex = p.behind ? -10 : 10;
-                                alive[attachCode].obj.children.sort((itemA, itemB) => itemA.zIndex - itemB.zIndex);
+                                alive[p.attachId].obj.children.sort((itemA, itemB) => itemA.zIndex - itemB.zIndex);
                             }
                         }
                         if (game.state.cubes[p.attachId]) {

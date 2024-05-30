@@ -70,25 +70,110 @@ const vectorUtils = {
     }
 }
 function SeedRandom(state1, state2) {
-    var mod1 = 4294967087
-    var mul1 = 65539
-    var mod2 = 4294965887
-    var mul2 = 65537
-    if (typeof state1 != "number") {
-        state1 = +new Date()
+    var mod1 = 4294967087;
+    var mul1 = 65539;
+    var mod2 = 4294965887;
+    var mul2 = 65537;
+
+    if (typeof state1 !== "number") {
+        state1 = +new Date();
     }
-    if (typeof state2 != "number") {
-        state2 = state1
+    if (typeof state2 !== "number") {
+        state2 = state1;
     }
-    state1 = state1 % (mod1 - 1) + 1
-    state2 = state2 % (mod2 - 1) + 1
+
+    state1 = state1 % (mod1 - 1) + 1;
+    state2 = state2 % (mod2 - 1) + 1;
+
     function random(limit) {
-        state1 = (state1 * mul1) % mod1
-        state2 = (state2 * mul2) % mod2
-        if (state1 < limit && state2 < limit && state1 < mod1 % limit && state2 < mod2 % limit) {
-            return random(limit)
-        }
-        return (state1 + state2) % limit
+        var rand;
+        do {
+            state1 = (state1 * mul1) % mod1;
+            state2 = (state2 * mul2) % mod2;
+            rand = (state1 + state2) % limit;
+        } while (rand >= limit);
+        return rand;
     }
-    return random
+
+    return random;
+}
+
+let stateProperty;
+
+function getAllStates() {
+    let state;
+    if (stateProperty) {
+        state = stateMaker[stateProperty];
+    } else {
+        for (let a in stateMaker) {
+            let b = stateMaker[a];
+            if (b.constructor.name == "Array") {
+                for (let i of b) {
+                    if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
+                        if (i.all.length > 10 && i.all.length < 15) {
+                            state = b;
+                            stateProperty = a;
+                            break;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    if (state) {
+        return state;
+    }
+}
+
+function setStates(states) {
+    let state;
+    if (stateProperty) {
+        state = stateMaker[stateProperty];
+    } else {
+        for (let a in stateMaker) {
+            let b = stateMaker[a];
+            if (b.constructor.name == "Array") {
+                for (let i of b) {
+                    if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
+                        if (i.all.length > 10 && i.all.length < 15) {
+                            state = b;
+                            stateProperty = a;
+                            break;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    if (state) {
+        state = states;
+    }
+}
+function getCurrentState() {
+    let state;
+    for (let a in stateMaker) {
+        let b = stateMaker[a];
+        if (b && b.constructor && b.constructor.name == "Array") {
+            for (let it in b) {
+                let i = b[it];
+                if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
+                    if (i.all.length > 10 && i.all.length < 15) {
+                        state = b;
+                        break;
+                    }
+
+                }
+            }
+        }
+    }
+    if (state) {
+        let last;
+        for (let a in state) {
+            state[a].frame = a;
+            last = state[a];
+        }
+        return last;
+    }
 }

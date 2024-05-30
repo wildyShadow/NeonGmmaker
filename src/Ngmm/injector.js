@@ -149,10 +149,20 @@ for (let i of settingsArray) {
         settingsEndArray.push(i.split("this.")[1].split("=")[0]);
     }
 }
+
+let playerDataArray = stateArray[45].split('.');
+function retrievePlayers() {
+    return stateMaker[playerDataArray[0]][playerDataArray[1]];
+}
+
+function retrieveAllPlayers() {
+    return stateMaker[stateArray[18]][playerDataArray[1]];
+}
 codeNames.settings = settingsEndArray;
 const editorInfo = stateMaker[stateArray[18]];
 let editorMaps = [];
 let playerInfo = [];
+
 const editorVar = String(editorInfo.constructor).match(/this\.(.*?)=/ig);
 editorVar.splice(0, 1);
 const editorVarArray = [];
@@ -164,6 +174,7 @@ for (let i of editorVar) {
 
 editorMaps = editorInfo[editorVarArray[4]];
 playerInfo = editorInfo[editorVarArray[2]];
+
 const stateVars2 = String(stateMaker[stateArray[23]].constructor).match(/this\.(.*?)=/ig);
 stateVars.splice(0, 1);
 const stateArray2 = [];
@@ -266,16 +277,25 @@ function defineGMM(code, blocklys, switched) {
 let jsSwitch = false;
 let myid = -1;
 let hostId = -1;
-
-let users = [];
-let abc = 'abcdefghijklmnopqrstuvwxyz';
 const alive = {};
 
-const render = window.PIXI.Text.prototype._render;
+const render2 = window.PIXI.Text.prototype._render;
 window.PIXI.Text.prototype._render = function (...args) {
-    render.call(this, ...args)
+    render2.call(this, ...args)
     if (this.parent && this._text) {
-        alive[this._text] = { orbj: this, obj: this.parent, frames: 16, txt: this };
+        let user = findUser(this._text);
+        if (user) {
+            user.obj = this.parent;
+        }
+        let player = findPlayer(this._text);
+        if (player) {
+            player.obj = this.parent;
+        }
+        lastPixiContainer = this.parent.parent;
+        while (lastPixiContainer.parent) {
+            lastPixiContainer = lastPixiContainer.parent;
+        }
+
     }
 }
 
@@ -302,32 +322,24 @@ window.requestAnimationFrame = new Proxy(window.requestAnimationFrame, {
         }
         Reflect.apply(...arguments);
         gmmEditor.style.display = document.querySelector("#appContainer > div.lobbyContainer > div.settingsBox > div.hideLobbyButton.settingsButton").style.display != 'none' ? 'none' : 'block';
-
-        for (let i in alive) {
-            let unalive = (!alive[i].obj || !alive[i].obj.transform || !alive[i].obj.parent || !alive[i].txt || !alive[i].txt.visible || alive[i].txt.parent != alive[i].obj || !alive[i].obj.visible || alive[i].obj.alpha <= 0);
-            let p = findUser(i);
-            if (p) {
-                if (unalive) {
-                    alive[i].frames--
-                    if (alive[i].frames <= 0) {
-                        delete alive[i];
-                    }
-                } else {
-                    let topElement = alive[i].obj;
-                    p.alive = true;
-                    p.x = alive[i].obj.x;
-                    p.y = alive[i].obj.y;
-                    lastPixiContainer = alive[i].obj.parent;
-                }
-            } else {
-                delete alive[i];
-            }
-        }
     }
 })
 function findUser(id) {
-    for (let t in users) {
-        let o = users[t];
+    let players = retrieveAllPlayers();
+    for (let t in players) {
+        let o = players[t];
+        if (o.id == id || o.name == id) {
+            o.index = t;
+            return o;
+            break;
+        }
+    }
+}
+
+function findPlayer(id) {
+    let players = retrievePlayers();
+    for (let t in players) {
+        let o = players[t];
         if (o.id == id || o.name == id) {
             o.index = t;
             return o;

@@ -118,7 +118,7 @@ declare interface sound {
     /**
     * Load a sound effect
     */
-    public load(soundId: number, url: string);
+    public load(soundId: string, url: string);
     /**
     * Play a sound effect
     */
@@ -296,6 +296,10 @@ declare interface vector {
     * Add two vectors.
     */
     public add(a: any, b: any);
+    /**
+    * Magnitude of a vector.
+    */
+    public magn(a: any);
     /**
     * Subtract two vectors.
     */

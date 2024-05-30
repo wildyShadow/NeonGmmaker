@@ -32,7 +32,6 @@ window.WebSocket.prototype.send = function (args) {
                     WSS = 0;
                     excludewss = [];
                     editor.style.display = "none";
-                    users = [];
                     for (let i in gmm.pixi) {
                         gmm.pixi[i].container.destroy();
                         delete gmm.pixi[i];
@@ -60,9 +59,6 @@ window.WebSocket.prototype.send = function (args) {
                             myid = packet[1][0]
                             hostId = packet[1][1];
                             updateGMMButton();
-                            for (let i of packet[1][3]) {
-                                users.push({ "team": i[2], "color": (i[7][0] || i[7][1]), "name": i[0], "id": i[4], "lvl": i[6] });
-                            }
                         }
                         if (packet[0] == 25) {
                             let plr = findUser(packet[1]);
@@ -73,10 +69,6 @@ window.WebSocket.prototype.send = function (args) {
                         if (packet[0] == 9) {
                             hostId = packet[2];
                             updateGMMButton();
-                            let user = findUser(packet[1]);
-                            if (user) {
-                                users.splice(user.index, 1);
-                            }
                         }
                         if (packet[0] == 45) {
                             hostId = packet[1];
@@ -93,7 +85,6 @@ window.WebSocket.prototype.send = function (args) {
                                     }
                                 }
                             }
-                            users.push({ "name": packet[1][0], "color": (packet[7] ? (packet[7][1] || packet[7][0]) : undefined), "team": packet[1][2], "id": packet[1][4], "lvl": packet[1][6] });
                         }
                     }
                 }

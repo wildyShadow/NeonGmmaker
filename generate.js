@@ -21,12 +21,28 @@ fetch(\`https://hitbox.io/bundle.js\`)
         let codeNames = {};
         const blocklyDefs = ${fs.readFileSync("./src/Blockly/blocklyDefs.json")};
         const libSource = \`${td}\`;
+        // INJECTOR
+        // this is the main part that will load the code and attempt to steal classes
+        // After retrieving each class, we are able to replace functions and inject the mod into them
         ${fs.readFileSync("./src/Ngmm/injector.js")}
+        // WEBSOCKET
+        // this is the section that will handle the game's socket
+        // required to change the mode or exit upon a crash
         ${fs.readFileSync("./src/Ngmm/websocket.js")}
+        // WORLD
+        // box2d world
         ${fs.readFileSync("./src/Ngmm/world.js")}
+        // NGMM
+        // pre-defined functions or variables
         ${fs.readFileSync("./src/Ngmm/ngmm.js")}
+        // STATE
+        // used for molding the inner game states
         ${fs.readFileSync("./src/Ngmm/state.js")}
+        // INPUTS
+        // used to override inputs or track them ingame
         ${fs.readFileSync("./src/Ngmm/inputs.js")}
+        // EDITOR
+        // editor related stuff
         ${fs.readFileSync("./src/Ngmm/editor.js")}
         let jsb = javascript.javascriptGenerator;
         let js = Blockly.JavaScript;
@@ -37,7 +53,7 @@ fetch(\`https://hitbox.io/bundle.js\`)
      });
 `
 
-if (true) {
+if (false) {
     code = JavaScriptObfuscator.obfuscate(code);
 }
 

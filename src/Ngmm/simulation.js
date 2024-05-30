@@ -20,6 +20,7 @@ stateMaker[codeNames.simulation[1]][codeNames.simulation[2]] = function (frame, 
             return;
         }
         if (codeNames.keySample && !noOverride) {
+            let users = retrievePlayers();
             for (let i of users) {
                 if (!info[i.id]) {
                     info[i.id] = new codeNames.keySample.constructor;
@@ -89,6 +90,7 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
             if (lc && !lc.vars) {
                 lc.vars = {};
                 lc.overrides = [];
+                let users = retrievePlayers();
                 for (let i of users) {
                     lc.overrides[i.id] = {
                         left: null,
@@ -242,84 +244,4 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
         simulated = stateMaker.rrP.call(this, frame);
     }
     return simulated;
-}
-
-//eval
-let stateProperty = null;
-function getAllStates() {
-    let state;
-    if (stateProperty) {
-        state = stateMaker[stateProperty];
-    } else {
-        for (let a in stateMaker) {
-            let b = stateMaker[a];
-            if (b.constructor.name == "Array") {
-                for (let i of b) {
-                    if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
-                        if (i.all.length > 10 && i.all.length < 15) {
-                            state = b;
-                            stateProperty = a;
-                            break;
-                        }
-
-                    }
-                }
-            }
-        }
-    }
-    if (state) {
-        return state;
-    }
-}
-
-function setStates(states) {
-    let state;
-    if (stateProperty) {
-        state = stateMaker[stateProperty];
-    } else {
-        for (let a in stateMaker) {
-            let b = stateMaker[a];
-            if (b.constructor.name == "Array") {
-                for (let i of b) {
-                    if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
-                        if (i.all.length > 10 && i.all.length < 15) {
-                            state = b;
-                            stateProperty = a;
-                            break;
-                        }
-
-                    }
-                }
-            }
-        }
-    }
-    if (state) {
-        state = states;
-    }
-}
-function getCurrentState() {
-    let state;
-    for (let a in stateMaker) {
-        let b = stateMaker[a];
-        if (b && b.constructor && b.constructor.name == "Array") {
-            for (let it in b) {
-                let i = b[it];
-                if (typeof (i) == "object" && "all" in i && i.all.constructor.name == "Array") {
-                    if (i.all.length > 10 && i.all.length < 15) {
-                        state = b;
-                        break;
-                    }
-
-                }
-            }
-        }
-    }
-    if (state) {
-        let last;
-        for (let a in state) {
-            state[a].frame = a;
-            last = state[a];
-        }
-        return last;
-    }
 }
