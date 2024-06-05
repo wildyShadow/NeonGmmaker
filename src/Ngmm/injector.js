@@ -328,7 +328,7 @@ function findUser(id) {
     let players = retrieveAllPlayers();
     for (let t in players) {
         let o = players[t];
-        if (o.id == id || o.name == id) {
+        if (o && (t == id || o.name == id)) {
             o.index = t;
             return o;
             break;
@@ -340,7 +340,7 @@ function findPlayer(id) {
     let players = retrievePlayers();
     for (let t in players) {
         let o = players[t];
-        if (o.id == id || o.name == id) {
+        if (o && (o.id == id || o.name == id)) {
             o.index = t;
             return o;
             break;

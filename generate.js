@@ -9,7 +9,7 @@ var JavaScriptObfuscator = require('javascript-obfuscator');
 // makes code beautiful?
 const td = fs.readFileSync("./src/webdocs/gmmd.ts")
 
-const version = "2.0.6";
+const version = "2.0.7";
 let code = `
 fetch(\`https://hitbox.io/bundle.js\`)
     .then(code => code.text())
@@ -44,10 +44,8 @@ fetch(\`https://hitbox.io/bundle.js\`)
         // EDITOR
         // editor related stuff
         ${fs.readFileSync("./src/Ngmm/editor.js")}
-        let jsb = javascript.javascriptGenerator;
-        let js = Blockly.JavaScript;
         ${fs.readFileSync("./src/Blockly/blocklyDefines.js")};
-        ${fs.readFileSync("./src/Blockly/blocklyFuncs.js")};
+        ${fs.readFileSync("./src/Blockly/blocklyFuncs.js")};        
         ${fs.readFileSync("./src/Ngmm/graphics.js")}
         ${fs.readFileSync("./src/Ngmm/simulation.js")}
      });

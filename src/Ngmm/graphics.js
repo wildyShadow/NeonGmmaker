@@ -42,7 +42,7 @@ function updateDrawings(dt) {
                     let offsetYL = 0;
                     let offsetAngle = 0;
                     if (p.attach == "cube") {
-                        let alive = retrieveAllPlayers();
+                        let alive = retrievePlayers();
                         if (alive[p.attachId]) {
                             if (!gmm.pixi[id].container.parent || gmm.pixi[id].container.parent != alive[p.attachId].obj) {
                                 gmm.pixi[id].container.parent?.removeChild(gmm.pixi[id].container);

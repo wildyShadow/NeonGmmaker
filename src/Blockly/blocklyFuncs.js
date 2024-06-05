@@ -1,7 +1,10 @@
+
+let jsb = javascript.javascriptGenerator.forBlock;
+let js = Blockly.JavaScript;
 jsb['event_init'] = function (block) {
     let perplayer = block.getFieldValue('perplayer') === 'TRUE';
     let player_id = block.getFieldValue('player_id');
-    let insideCode = jsb.statementToCode(block, 'code');
+    let insideCode = js.statementToCode(block, 'code');
 
     let code = `game.events.add('${perplayer ? 'init4each' : 'init'}', function(${perplayer ? 'cube_id' : ''}) {\n`;
 
@@ -17,7 +20,7 @@ jsb['event_init'] = function (block) {
 jsb['event_step'] = function (block) {
     let perplayer = block.getFieldValue('perplayer') === 'TRUE';
     let player_id = block.getFieldValue('player_id');
-    let insideCode = jsb.statementToCode(block, 'code');
+    let insideCode = js.statementToCode(block, 'code');
 
     let code = `game.events.add('${perplayer ? 'step4each' : 'step'}', function(${perplayer ? 'cube_id' : ''}) {\n`;
 
@@ -31,7 +34,7 @@ jsb['event_step'] = function (block) {
 };
 
 jsb['cube_get'] = function (block) {
-    let player_id = jsb.valueToCode(block, "PLRID", js.ORDER_ADDITION);
+    let player_id = js.valueToCode(block, "PLRID", js.ORDER_ADDITION);
     let info = block.getFieldValue('info')
 
     let code = `game.state.cubes[${player_id}]${info}`
@@ -40,7 +43,7 @@ jsb['cube_get'] = function (block) {
 };
 
 jsb['cube_exist'] = function (block) {
-    let player_id = jsb.valueToCode(block, "PLRID", js.ORDER_ADDITION);
+    let player_id = js.valueToCode(block, "PLRID", js.ORDER_ADDITION);
 
     let code = `(game.state.cubes[${player_id}]? true : false)`;
 
@@ -48,25 +51,25 @@ jsb['cube_exist'] = function (block) {
 };
 
 jsb['cube_set'] = function (block) {
-    let player_id = jsb.valueToCode(block, "PLRID", js.ORDER_ADDITION);
+    let player_id = js.valueToCode(block, "PLRID", js.ORDER_ADDITION);
     let info = block.getFieldValue('info')
-    let value = jsb.valueToCode(block, "VALUE", js.ORDER_ADDITION);
+    let value = js.valueToCode(block, "VALUE", js.ORDER_ADDITION);
     let code = `game.state.cubes[${player_id}]${info} = ${value};\n`
 
     return code;
 };
 
 jsb['input_override'] = function (block) {
-    let player_id = jsb.valueToCode(block, "PLRID", js.ORDER_ADDITION);
+    let player_id = js.valueToCode(block, "PLRID", js.ORDER_ADDITION);
     let info = block.getFieldValue('info')
-    let value = jsb.valueToCode(block, "VALUE", js.ORDER_ADDITION);
+    let value = js.valueToCode(block, "VALUE", js.ORDER_ADDITION);
     let code = `game.inputs[${player_id}].${info} = ${value};\n`
 
     return code;
 };
 
 jsb['input_no_override'] = function (block) {
-    let player_id = jsb.valueToCode(block, "PLRID", js.ORDER_ADDITION);
+    let player_id = js.valueToCode(block, "PLRID", js.ORDER_ADDITION);
     let info = block.getFieldValue('info')
 
     let code = `game.inputs[${player_id}].${info} = null;\n`
@@ -75,7 +78,7 @@ jsb['input_no_override'] = function (block) {
 };
 
 jsb['input_get'] = function (block) {
-    let player_id = jsb.valueToCode(block, "PLRID", js.ORDER_ADDITION);
+    let player_id = js.valueToCode(block, "PLRID", js.ORDER_ADDITION);
     let info = block.getFieldValue('info')
 
     let code = `game.inputs[${player_id}].${info}`
@@ -84,7 +87,7 @@ jsb['input_get'] = function (block) {
 };
 
 jsb['define_local'] = function (block) {
-    let value = jsb.valueToCode(block, "VALUE", js.ORDER_ADDITION);
+    let value = js.valueToCode(block, "VALUE", js.ORDER_ADDITION);
     let varname = block.getFieldValue('VAR_NAME')
 
     let code = `let ${varname} = ${value};\n`
@@ -93,7 +96,7 @@ jsb['define_local'] = function (block) {
 };
 
 jsb['set_local'] = function (block) {
-    let value = jsb.valueToCode(block, "VALUE", js.ORDER_ADDITION);
+    let value = js.valueToCode(block, "VALUE", js.ORDER_ADDITION);
     let varname = block.getFieldValue('VAR_NAME')
 
     let code = `${varname} = ${value}\n;`
@@ -110,7 +113,7 @@ jsb['get_local'] = function (block) {
 };
 
 jsb['define_group'] = function (block) {
-    let group = jsb.valueToCode(block, "GROUP", js.ORDER_ADDITION);
+    let group = js.valueToCode(block, "GROUP", js.ORDER_ADDITION);
 
     let code = `game.vars[${group}] = {};\n`
 
@@ -118,7 +121,7 @@ jsb['define_group'] = function (block) {
 };
 
 jsb['get_group'] = function (block) {
-    let group = jsb.valueToCode(block, "GROUP", js.ORDER_ADDITION);
+    let group = js.valueToCode(block, "GROUP", js.ORDER_ADDITION);
     let varname = block.getFieldValue('VAR')
 
     let code = `game.vars[${group}].${varname}`
@@ -127,9 +130,9 @@ jsb['get_group'] = function (block) {
 };
 
 jsb['set_group'] = function (block) {
-    let group = jsb.valueToCode(block, "GROUP", js.ORDER_ADDITION);
+    let group = js.valueToCode(block, "GROUP", js.ORDER_ADDITION);
     let varname = block.getFieldValue('VAR')
-    let value = jsb.valueToCode(block, "VALUE", js.ORDER_ADDITION);
+    let value = js.valueToCode(block, "VALUE", js.ORDER_ADDITION);
 
     let code = `game.vars[${group}].${varname} = ${value};\n`
 
@@ -138,8 +141,8 @@ jsb['set_group'] = function (block) {
 
 jsb['vector_math'] = function (block) {
     let operation = block.getFieldValue('operation');
-    let A = jsb.valueToCode(block, "A", js.ORDER_NONE);
-    let B = jsb.valueToCode(block, "B", js.ORDER_NONE);
+    let A = js.valueToCode(block, "A", js.ORDER_NONE);
+    let B = js.valueToCode(block, "B", js.ORDER_NONE);
 
     let code = `game.Vector.${operation}(${A},${B})`;
 
@@ -147,15 +150,15 @@ jsb['vector_math'] = function (block) {
 };
 jsb['vector_math2'] = function (block) {
     let operation = block.getFieldValue('operation');
-    let A = jsb.valueToCode(block, "A", js.ORDER_NONE);
+    let A = js.valueToCode(block, "A", js.ORDER_NONE);
 
     let code = `game.Vector.${operation}(${A})`;
 
     return [code, js.ORDER_NONE];
 };
 jsb['vector'] = function (block) {
-    let x = jsb.valueToCode(block, "X", js.ORDER_NONE);
-    let y = jsb.valueToCode(block, "Y", js.ORDER_NONE);
+    let x = js.valueToCode(block, "X", js.ORDER_NONE);
+    let y = js.valueToCode(block, "Y", js.ORDER_NONE);
 
     let code = `[${x},${y}]`;
 

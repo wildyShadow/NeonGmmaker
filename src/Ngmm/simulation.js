@@ -22,13 +22,15 @@ stateMaker[codeNames.simulation[1]][codeNames.simulation[2]] = function (frame, 
         if (codeNames.keySample && !noOverride) {
             let users = retrievePlayers();
             for (let i of users) {
-                if (!info[i.id]) {
-                    info[i.id] = new codeNames.keySample.constructor;
+                if (i) {
+                    if (!info[i.id]) {
+                        info[i.id] = new codeNames.keySample.constructor;
+                    }
+                    if (!this[inputsPropertie][i.id]) {
+                        this[inputsPropertie][i.id] = [[]];
+                    }
+                    this[inputsPropertie][i.id][0] = info[i.id];
                 }
-                if (!this[inputsPropertie][i.id]) {
-                    this[inputsPropertie][i.id] = [[]];
-                }
-                this[inputsPropertie][i.id][0] = info[i.id];
             }
         }
         if (state && gmm.applyOverrides && !noOverride) {
@@ -92,15 +94,17 @@ stateMaker[codeNames.simulation[0]] = function (frame) {
                 lc.overrides = [];
                 let users = retrievePlayers();
                 for (let i of users) {
-                    lc.overrides[i.id] = {
-                        left: null,
-                        right: null,
-                        up: null,
-                        down: null,
-                        action3: null,
-                        action4: null,
-                        action2: null,
-                        action1: null
+                    if (i) {
+                        lc.overrides[i.id] = {
+                            left: null,
+                            right: null,
+                            up: null,
+                            down: null,
+                            action3: null,
+                            action4: null,
+                            action2: null,
+                            action1: null
+                        }
                     }
                 }
                 lc.graphics = { create: createGraphics, index: 0, drawings: {}, loadTexture: loadTextureGMM };

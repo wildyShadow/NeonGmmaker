@@ -222,8 +222,6 @@ game.events.add("init4each",(id) => {
         new Promise(async (r) => {
             const thisId = setInterval(async () => {
                 if (window.Blockly) {
-                    let jsb = javascript.javascriptGenerator;
-                    let js = Blockly.JavaScript;
                     let theme = Blockly.Theme.defineTheme('dark', {
                         base: Blockly.Themes.Classic,
                         componentStyles: {
@@ -272,4 +270,3 @@ game.events.add("init4each",(id) => {
                 console.log("blockly loaded");
             })
     })
-//<textarea class="scrollBox" wrap="soft" spellcheck="false" style="border: none; outline: none; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; resize: none; position: absolute; overflow-y: scroll; overflow-x: hidden; background-color: #2f2f2f; height: calc(100% - 60px); width: calc(100% - 80px); left: 80px; top: 50px; box-sizing: border-box; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; white-space: nowrap;"></textarea>
