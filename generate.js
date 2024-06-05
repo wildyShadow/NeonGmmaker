@@ -51,7 +51,7 @@ fetch(\`https://hitbox.io/bundle.js\`)
      });
 `
 
-if (false) {
+if (true) {
     code = JavaScriptObfuscator.obfuscate(code);
 }
 
