@@ -269,19 +269,19 @@ declare class stateStep {
     /**
     * A array representing all flags in the map.
     */
-    public flags: flag[];
+    public flags: flag[] = [];
     /**
     * A array representing data of all the alive players.
     */
-    public playerData: playerData[];
+    public playerData: playerData[] = [];
     /**
     * A array representing all the alive players.
     */
-    public cubes: cube[];
+    public cubes: cube[] = [];
     /**
     * A array representing all the projectiles.
     */
-    public projectiles: projectile[];
+    public projectiles: projectile[] = [];
     /**
      * current frame of this step.
      */
@@ -349,7 +349,7 @@ namespace game {
     /**
     * This is a array that contains overridable properties of each player's input, set to null to stop override.
     */
-    const overrides: input[];
+    const overrides: input[] = [];
     /**
     * in game sound effects.
     */
@@ -377,5 +377,5 @@ namespace game {
     /**
     * The current game's inputs.
     */
-    const inputs: input[];
+    const inputs: input[] = [];
 }

@@ -9,7 +9,7 @@ var JavaScriptObfuscator = require('javascript-obfuscator');
 // makes code beautiful?
 const td = fs.readFileSync("./src/webdocs/gmmd.ts")
 
-const version = "2.0.7";
+const version = "2.0.8";
 let code = `
 fetch(\`https://hitbox.io/bundle.js\`)
     .then(code => code.text())
